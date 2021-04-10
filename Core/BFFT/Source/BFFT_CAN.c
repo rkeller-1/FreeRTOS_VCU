@@ -135,7 +135,7 @@ static int8_t s8CANFilterInit(void)
    int8_t s8ErrorHandle = CAN_OKAY;
 
    xCANFilter.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-   xCANFilter.FilterIdHigh = 1u<<5u;//cu32TxId << 5u;
+   xCANFilter.FilterIdHigh = cu32TxId << 5u;
    xCANFilter.FilterIdLow = 0u;
    xCANFilter.FilterMaskIdHigh = 0u;
    xCANFilter.FilterMaskIdLow = 0u;
