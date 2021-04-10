@@ -32,7 +32,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "BFFT.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -58,10 +58,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_Okay_Pin GPIO_PIN_5
-#define LED_Okay_GPIO_Port GPIOA
-#define LED_Error_Pin GPIO_PIN_14
-#define LED_Error_GPIO_Port GPIOB
+#define LED_StatusOkay_Pin GPIO_PIN_5
+#define LED_StatusOkay_GPIO_Port GPIOA
+#define LED_StatusError_Pin GPIO_PIN_14
+#define LED_StatusError_GPIO_Port GPIOB
 #define LED_SystemAlive_Pin GPIO_PIN_7
 #define LED_SystemAlive_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */

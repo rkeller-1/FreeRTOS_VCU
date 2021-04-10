@@ -55,6 +55,20 @@ const osThreadAttr_t defaultTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
 };
+/* Definitions for ThreadCANSendMe */
+osThreadId_t ThreadCANSendMeHandle;
+const osThreadAttr_t ThreadCANSendMe_attributes = {
+  .name = "ThreadCANSendMe",
+  .priority = (osPriority_t) osPriorityBelowNormal,
+  .stack_size = 128 * 4
+};
+/* Definitions for ThreadLEDSystem */
+osThreadId_t ThreadLEDSystemHandle;
+const osThreadAttr_t ThreadLEDSystem_attributes = {
+  .name = "ThreadLEDSystem",
+  .priority = (osPriority_t) osPriorityLow,
+  .stack_size = 128 * 4
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -62,6 +76,8 @@ const osThreadAttr_t defaultTask_attributes = {
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
+void vThreadCANSendMessage(void *argument);
+void vThreadLEDSystemAlive(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -113,6 +129,12 @@ void MX_FREERTOS_Init(void) {
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
+  /* creation of ThreadCANSendMe */
+  ThreadCANSendMeHandle = osThreadNew(vThreadCANSendMessage, NULL, &ThreadCANSendMe_attributes);
+
+  /* creation of ThreadLEDSystem */
+  ThreadLEDSystemHandle = osThreadNew(vThreadLEDSystemAlive, NULL, &ThreadLEDSystem_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -139,6 +161,48 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_vThreadCANSendMessage */
+/**
+* @brief Function implementing the ThreadCANSendMe thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_vThreadCANSendMessage */
+void vThreadCANSendMessage(void *argument)
+{
+  /* USER CODE BEGIN vThreadCANSendMessage */
+  /* Infinite loop */
+   TickType_t xPreviousWakeTime = xTaskGetTickCount();
+
+   while(1)
+   {
+      s8CANSendMessage();
+      vTaskDelayUntil(&xPreviousWakeTime, 5u/portTICK_RATE_MS);
+   }
+  /* USER CODE END vThreadCANSendMessage */
+}
+
+/* USER CODE BEGIN Header_vThreadLEDSystemAlive */
+/**
+* @brief Function implementing the ThreadLEDSystem thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_vThreadLEDSystemAlive */
+void vThreadLEDSystemAlive(void *argument)
+{
+  /* USER CODE BEGIN vThreadLEDSystemAlive */
+  /* Infinite loop */
+   TickType_t xPreviousWakeTime = xTaskGetTickCount();
+
+   while(1)
+   {
+      vLEDSystemAliveToggle();
+      vTaskDelayUntil(&xPreviousWakeTime, 250u/portTICK_RATE_MS);
+   }
+  /* USER CODE END vThreadLEDSystemAlive */
 }
 
 /* Private application code --------------------------------------------------*/

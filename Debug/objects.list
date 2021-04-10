@@ -1,3 +1,5 @@
+"Core/BFFT/Source/BFFT_CAN.o"
+"Core/BFFT/Source/BFFT_SystemStatusLED.o"
 "Core/Src/can.o"
 "Core/Src/freertos.o"
 "Core/Src/gpio.o"

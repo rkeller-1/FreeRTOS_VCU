@@ -50,20 +50,20 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_Okay_GPIO_Port, LED_Okay_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(LED_StatusOkay_GPIO_Port, LED_StatusOkay_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED_Error_Pin|LED_SystemAlive_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED_StatusError_Pin|LED_SystemAlive_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = LED_Okay_Pin;
+  GPIO_InitStruct.Pin = LED_StatusOkay_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED_Okay_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(LED_StatusOkay_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PBPin PBPin */
-  GPIO_InitStruct.Pin = LED_Error_Pin|LED_SystemAlive_Pin;
+  GPIO_InitStruct.Pin = LED_StatusError_Pin|LED_SystemAlive_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
